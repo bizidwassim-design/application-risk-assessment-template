@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install openpyxl
+      - name: Rebuild the workbook from source
+        run: python scripts/build_template.py
+      - name: Verify the workbook opens and has the six sheets
+        run: |
+          python - <<'EOF'
+          from openpyxl import load_workbook
+          wb = load_workbook("Application-Risk-Assessment-Template.xlsx")
+          expected = ["01_Methodology", "02_Scales", "03_Application_Inventory", "04_Risk_Register", "05_Dashboard", "06_Risk_Matrix"]
+          assert wb.sheetnames == expected, wb.sheetnames
+          assert not getattr(wb, "vba_archive", None), "workbook must not contain macros"
+          print("OK:", wb.sheetnames)
+          EOF
