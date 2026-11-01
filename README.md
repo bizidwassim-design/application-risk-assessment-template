@@ -99,6 +99,13 @@ credentials and confidential incident details out of the file.
 
 Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md).
 
+## AI assistance
+
+Built with Claude Code as a coding and writing assistant, which is why it appears as a co-author on some commits.
+**Editor and reviewer: Wassim Bizid**, who set the scope, the frameworks and the GRC approach, edited the content
+and decided what was published. Automated tests in CI check the published outputs. This is a maintainer review,
+not an independent one.
+
 ## License
 
 [MIT](LICENSE) — free to use, copy, modify and redistribute.
